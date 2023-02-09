@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,65 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &331198557
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 331198559}
-  - component: {fileID: 331198558}
-  - component: {fileID: 331198560}
-  m_Layer: 0
-  m_Name: Utility
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &331198558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 331198557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33f9ef8f1f511634aabb6347a24d13fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FontAsset: {fileID: 11400000, guid: 406de3bfb09011f4986d558adb49d8ae, type: 2}
---- !u!4 &331198559
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 331198557}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 700.49884, y: 585.5882, z: 7.5202513}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 389049909}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &331198560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 331198557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc72ed19edc76c64eb0083c3b97cc999, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mDialogBoxPrefab: {fileID: 7898037797172710343, guid: 2bbe5e9b978cf22418f995ac3eaadfb9, type: 3}
 --- !u!1 &389049907
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 389049909}
   - component: {fileID: 389049908}
+  - component: {fileID: 389049910}
   m_Layer: 0
   m_Name: Sample Manager
   m_TagString: Untagged
@@ -208,9 +150,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 389049907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f0594e49d9f0f48bc69f503991b436, type: 3}
+  m_Script: {fileID: 11500000, guid: b6019942fcd1dd94f87baeb5b6f0782e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mTogglesSamplePrefab: {fileID: 6310035316938161120, guid: 9df650de2532a4b498ea6ac50d095788,
+    type: 3}
 --- !u!4 &389049909
 Transform:
   m_ObjectHideFlags: 0
@@ -222,11 +166,24 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 331198559}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &389049910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389049907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc72ed19edc76c64eb0083c3b97cc999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mDialogBoxPrefab: {fileID: 7898037797172710343, guid: 2bbe5e9b978cf22418f995ac3eaadfb9,
+    type: 3}
 --- !u!1 &1427771017
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,6 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit

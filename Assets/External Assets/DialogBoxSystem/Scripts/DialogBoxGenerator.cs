@@ -5,7 +5,7 @@ using TMPro;
 
 using DialogBox;
 
-public class DialogBoxGenerator : MonoBehaviour
+public class DialogBoxGenerator : Singleton<DialogBoxGenerator>
 {
     [Header("다이얼로그 박스 프리맵의 최상위 부모")]
     [SerializeField] private GameObject mDialogBoxPrefab;
@@ -16,13 +16,13 @@ public class DialogBoxGenerator : MonoBehaviour
         return controller;
     }
 
-    public void CreateSimpleDialogBox(string title, string context, string buttonText, int width = 200, int height = 150, int titleHeight = 20, int buttonHeight = 20)
+    public DialogBoxController CreateSimpleDialogBox(string title, string context, string buttonText, System.Action<DialogBoxController, string> eventAction = null, int width = 200, int height = 150, int titleHeight = 30, int buttonHeight = 30)
     {
         //다이얼로그박스 생성
         DialogBoxController controller = CreateEmptyDialogBox();
 
         //다이얼로그박스 크기 설정
-        controller.InitDialogBox(width, height);
+        controller.InitDialogBox(width, height, eventAction);
 
         //사이즈 조절
         controller.SetTopBoxHeight(titleHeight);
@@ -36,10 +36,10 @@ public class DialogBoxGenerator : MonoBehaviour
 
         //나가기 버튼 생성
         controller.AddButton(null, true, buttonText, DialogBoxController.RESERVED_EVENT_CLOSE);
+
+        //생성한 컨트롤러 리턴
+        return controller;
     }
 
-    private void Start()
-    {
-        CreateSimpleDialogBox("공지", "알림사항", "확인");
-    }
+
 }

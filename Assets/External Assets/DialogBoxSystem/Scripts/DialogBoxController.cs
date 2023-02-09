@@ -64,8 +64,6 @@ namespace DialogBox
         [Header("콘텐츠 영역의 최상위 부모 트랜스폼")]
         [SerializeField] private RectTransform mContentsScrollViewRoot;
 
-
-        private bool mIsNotifyMode = true; //특정한 이벤트 없이 확인버튼을 누르면 사라지는 창인가?
         private Vector2Int mDialogBoxRootSize; //활성화 된 다이얼로그박스의 사이즈
         private Action<DialogBoxController, string> mEventAction; //이 다이얼로그박스가 호출할 이벤트
         private Dictionary<string, DialogBoxController> mDestroyCallEvents = new Dictionary<string, DialogBoxController>(); //다이얼로그박스가 파괴될때 호출할 이벤트
@@ -85,12 +83,11 @@ namespace DialogBox
             //이벤트 버튼 설정 (있는경우)
             if (eventAction != null)
             {
-                Debug.Log("Not null");
-                mIsNotifyMode = false; //단순 알림 모드가 아님
                 mEventAction += eventAction; //이벤트 등록
             }
         }
 
+        #region 요소 추가
         /// <summary>
         /// 텍스트를 추가합니다. 콘텐츠 영역에 추가됩니다.
         /// </summary>
@@ -290,6 +287,40 @@ namespace DialogBox
             return newHorizontalLayoutBorder.transform; //트랜스폼을 리턴
         }
 
+        public DialogBoxPrefabDeliver AddExistsPrefab(string key, bool isEnableWhenStart, DialogBoxPrefabDeliver prefab, bool isDeliverEvent)
+        {
+            //이벤트 리시버 설정
+            if (isDeliverEvent)
+            {
+                prefab.EventReciever = this;
+            }
+
+            //컴포넌트 획득
+            RectTransform currentRectTransform = prefab.GetComponent<RectTransform>();
+
+            //크기 조정수치 구하기
+            float scaleCorrection = mDialogBoxRootSize.x / currentRectTransform.sizeDelta.x;
+
+            //프리팹의 크기를 기반으로 보더 생성
+            GameObject newBorder = AddBorder(null, isEnableWhenStart, (int)(currentRectTransform.sizeDelta.y * scaleCorrection), true);
+
+            //프리팹 위치 및 크기 조절 
+            RectTransform newPrefab = Instantiate(prefab, Vector3.zero, Quaternion.identity, newBorder.transform).GetComponent<RectTransform>();
+            newPrefab.localScale = Vector3.one * scaleCorrection;
+            newPrefab.localPosition = new Vector3((mDialogBoxRootSize.x * 0.5f) - BORDER_GAP * 0.5f, 0f);
+
+            //프리팹 활성화
+            prefab.gameObject.SetActive(true);
+
+            //활성화 여부에 따른 부모오브젝트인 보더 활성화
+            newBorder.SetActive(isEnableWhenStart);
+
+            //딕셔너리에 삽입
+            AddInstantiatedObject(key, newPrefab.gameObject);
+
+            return prefab;
+        }
+        #endregion
 
         #region 유틸리티
         public void ToggleDialogBox(bool isEnable)
@@ -341,13 +372,13 @@ namespace DialogBox
         public DialogBoxController GetReferenceDialogBox(string dialogBoxKey)
         {
             return mReferenceDialogBoxes[dialogBoxKey];
-        }        
+        }
 
         public void AddDestroyListener(string eventID, DialogBoxController eventReciever)
         {
             mDestroyCallEvents.Add(eventID, eventReciever);
         }
-        
+
         public void SetTopBoxHeight(int height)
         {
             //크기 설정
@@ -355,9 +386,9 @@ namespace DialogBox
 
             //Height가 0보다 크면(존재하는경우) 활성화
             mTopContentsParent.gameObject.SetActive(height > 0);
-            
+
             //글자 크기는 높이의 75%
-            mTitleLabel.fontSizeMax = height * 0.75f; 
+            mTitleLabel.fontSizeMax = height * 0.75f;
 
             //박스 크기 조절
             RefreshBoxSize();
@@ -365,7 +396,7 @@ namespace DialogBox
 
         public void SetTitleBox(string text, TextAlignmentOptions alignOption = TextAlignmentOptions.Center)
         {
-            TextMeshProUGUI titleLabel =  mTitleLabel.GetComponent<TextMeshProUGUI>(); 
+            TextMeshProUGUI titleLabel = mTitleLabel.GetComponent<TextMeshProUGUI>();
 
             titleLabel.text = text;
             titleLabel.alignment = alignOption;
@@ -399,20 +430,14 @@ namespace DialogBox
         #region UI 이벤트
         public void EventTrigger(string eventID)
         {
-            switch(eventID)
+            switch (eventID)
             {
                 case RESERVED_EVENT_CLOSE:
-                {
-                    DestroyBox();
+                    {
+                        DestroyBox();
 
-                    break;
-                }
-            }
-
-            if (mIsNotifyMode) 
-            { 
-                ToggleDialogBox(false);
-                return;
+                        break;
+                    }
             }
 
             mEventAction.Invoke(this, eventID);
