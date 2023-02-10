@@ -9,5 +9,5 @@
 **Super Simple Dialog Box Script**
 
     //Create a simple dialog box
-    DialogBoxController  controller  =  DialogBoxGenerator.Instance.CreateSimpleDialogBox("notification", "Notice", "OK", EVENT_DialogBox, "BTN_Confirm");
+    DialogBoxController  controller = DialogBoxGenerator.Instance.CreateSimpleDialogBox("Title Here", "Text Here", "OK");
 ![enter image description here](https://drive.google.com/uc?export=view&id=1UJZusj3_Lj_37byQmADJrXQWSUIowkl7)
