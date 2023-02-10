@@ -68,6 +68,7 @@ namespace DialogBox
         private const int BORDER_GAP = 20; //보더에 의해 콘텐츠 영역에서 차지하는 크기
 
         public const string RESERVED_EVENT_CLOSE = "RESERVED_EVENT_CLOSE";
+        public const string RESERVED_EVENT_ON_DESTROY = "RESERVED_EVENT_ON_DESTROY";
 
         [Space(50)]
         [Header("다이얼로그 박스 루트(캔버스 자식)")]
@@ -503,13 +504,12 @@ namespace DialogBox
         }
 
         /// <summary>
-        /// 파괴시 호출할 이벤트 리스너를 등록
+        /// 파괴시 호출할 이벤트 리스너를 등록 'RESERVED_EVENT_ON_DESTROY'가 호출
         /// </summary>
-        /// <param name="eventID">파괴시 호출할 이벤트</param>
-        /// <param name="eventReciever">누가 이벤트를 호출할것인가?</param>
-        public void AddDestroyListener(string eventID, DialogBoxController eventReciever)
+        /// <param name="eventReciever">누가 이벤트를 호출할것인가? (null: 자기자신)</param>
+        public void AddDestroyListener(DialogBoxController eventReciever = null)
         {
-            mDestroyCallEvents.Add(eventID, eventReciever);
+            mDestroyCallEvents.Add(RESERVED_EVENT_ON_DESTROY, eventReciever == null ? this : eventReciever);
         }
 
         /// <summary>
@@ -587,13 +587,15 @@ namespace DialogBox
         /// <param name="eventID"></param>
         public void EventTrigger(string eventID)
         {
+            Debug.Log(eventID);
+
             switch (eventID) //호출한 이벤트가 예약되어있는 이벤트인가?
             {
                 case RESERVED_EVENT_CLOSE: //단순히 닫는 다이얼로그박스인경우
                     {
                         DestroyBox();
 
-                        break;
+                        return;
                     }
             }
 

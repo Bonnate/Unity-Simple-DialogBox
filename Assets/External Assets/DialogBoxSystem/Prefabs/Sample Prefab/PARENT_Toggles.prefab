@@ -176,6 +176,7 @@ MonoBehaviour:
     go: {fileID: 413701932076685404}
   - key: Toggle3
     go: {fileID: 8703018358689610200}
+  EventReciever: {fileID: 0}
 --- !u!1 &413701932076685404
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +213,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 95.29999, y: 6.670841}
+  m_AnchoredPosition: {x: 95.29999, y: 39.8}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8441899311087816818
@@ -274,7 +275,7 @@ MonoBehaviour:
           m_StringArgument: Toggle2
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &760214428055705690
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,7 +767,7 @@ MonoBehaviour:
           m_StringArgument: Toggle1
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &7519606189320041251
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,7 +881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 95.3, y: 38.962505}
+  m_AnchoredPosition: {x: 95.28416, y: 7}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &111836406512652302
@@ -942,7 +943,7 @@ MonoBehaviour:
           m_StringArgument: Toggle3
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &9045509927458945084
 GameObject:
   m_ObjectHideFlags: 0
